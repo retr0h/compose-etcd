@@ -9,7 +9,7 @@ networks:
         - subnet: ${NETWORK_CONFIG_SUBNET}
 
 services:
-  etcd-01:
+  etcd-0:
     networks:
       etcd_net:
         ipv4_address: ${ETCD_01_NETWORKS_ETCD_NET_ADDRESS}
@@ -18,20 +18,20 @@ services:
       - ${ETCD_01_NETWORKS_ETCD_NET_ADDRESS}:4001:4001
       - ${ETCD_01_NETWORKS_ETCD_NET_ADDRESS}:2380:2380
       - ${ETCD_01_NETWORKS_ETCD_NET_ADDRESS}:2379:2379
-    hostname: etcd-01
+    hostname: etcd-0
     environment:
       - GOMAXPROCS=2
     command: >-
       /usr/local/bin/etcd
-      -name etcd-01
-      -advertise-client-urls http://etcd-01:2379,http://etcd-01:4001
+      -name etcd-0
+      -advertise-client-urls http://etcd-0:2379,http://etcd-0:4001
       -listen-client-urls http://${ETCD_01_NETWORKS_ETCD_NET_ADDRESS}:2379,http://${ETCD_01_NETWORKS_ETCD_NET_ADDRESS}:4001
-      -initial-advertise-peer-urls http://etcd-01:2380
+      -initial-advertise-peer-urls http://etcd-0:2380
       -listen-peer-urls http://${ETCD_01_NETWORKS_ETCD_NET_ADDRESS}:2380
-      -initial-cluster-token etcd-cluster-1
-      -initial-cluster etcd-01=http://etcd-01:2380,etcd-02=http://etcd-02:2380,etcd-03=http://etcd-03:2380
+      -initial-cluster-token etcd-cluster
+      -initial-cluster etcd-0=http://etcd-0:2380,etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380
       -initial-cluster-state new
-  etcd-02:
+  etcd-1:
     networks:
       etcd_net:
         ipv4_address: ${ETCD_02_NETWORKS_ETCD_NET_ADDRESS}
@@ -40,20 +40,20 @@ services:
       - ${ETCD_02_NETWORKS_ETCD_NET_ADDRESS}:4001:4001
       - ${ETCD_02_NETWORKS_ETCD_NET_ADDRESS}:2380:2380
       - ${ETCD_02_NETWORKS_ETCD_NET_ADDRESS}:2379:2379
-    hostname: etcd-02
+    hostname: etcd-1
     environment:
       - GOMAXPROCS=2
     command: >-
       /usr/local/bin/etcd
-      -name etcd-02
-      -advertise-client-urls http://etcd-02:2379,http://etcd-02:4001
+      -name etcd-1
+      -advertise-client-urls http://etcd-1:2379,http://etcd-1:4001
       -listen-client-urls http://${ETCD_02_NETWORKS_ETCD_NET_ADDRESS}:2379,http://${ETCD_02_NETWORKS_ETCD_NET_ADDRESS}:4001
-      -initial-advertise-peer-urls http://etcd-02:2380
+      -initial-advertise-peer-urls http://etcd-1:2380
       -listen-peer-urls http://${ETCD_02_NETWORKS_ETCD_NET_ADDRESS}:2380
-      -initial-cluster-token etcd-cluster-1
-      -initial-cluster etcd-01=http://etcd-01:2380,etcd-02=http://etcd-02:2380,etcd-03=http://etcd-03:2380
+      -initial-cluster-token etcd-cluster
+      -initial-cluster etcd-0=http://etcd-0:2380,etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380
       -initial-cluster-state new
-  etcd-03:
+  etcd-2:
     networks:
       etcd_net:
         ipv4_address: ${ETCD_03_NETWORKS_ETCD_NET_ADDRESS}
@@ -62,16 +62,16 @@ services:
       - ${ETCD_03_NETWORKS_ETCD_NET_ADDRESS}:4001:4001
       - ${ETCD_03_NETWORKS_ETCD_NET_ADDRESS}:2380:2380
       - ${ETCD_03_NETWORKS_ETCD_NET_ADDRESS}:2379:2379
-    hostname: etcd-03
+    hostname: etcd-2
     environment:
       - GOMAXPROCS=2
     command: >-
       /usr/local/bin/etcd
-      -name etcd-03
-      -advertise-client-urls http://etcd-03:2379,http://etcd-03:4001
+      -name etcd-2
+      -advertise-client-urls http://etcd-2:2379,http://etcd-2:4001
       -listen-client-urls http://${ETCD_03_NETWORKS_ETCD_NET_ADDRESS}:2379,http://${ETCD_03_NETWORKS_ETCD_NET_ADDRESS}:4001
-      -initial-advertise-peer-urls http://etcd-03:2380
+      -initial-advertise-peer-urls http://etcd-2:2380
       -listen-peer-urls http://${ETCD_03_NETWORKS_ETCD_NET_ADDRESS}:2380
-      -initial-cluster-token etcd-cluster-1
-      -initial-cluster etcd-01=http://etcd-01:2380,etcd-02=http://etcd-02:2380,etcd-03=http://etcd-03:2380
+      -initial-cluster-token etcd-cluster
+      -initial-cluster etcd-0=http://etcd-0:2380,etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380
       -initial-cluster-state new

@@ -10,9 +10,9 @@ A MacOS installed Docker requires the following
 
 Update hosts file with:
 
-    172.16.238.11 etcd-01
-    172.16.238.12 etcd-02
-    172.16.238.13 etcd-03
+    172.16.238.11 etcd-0
+    172.16.238.12 etcd-1
+    172.16.238.13 etcd-2
 
 Add aliases
 
